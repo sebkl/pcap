@@ -57,7 +57,7 @@ func TestDecodeSimpleTcpPacket(t *testing.T) {
 		t.Error("Incorrect number of headers", len(p.Headers))
 		return
 	}
-	if ip, ipOk := p.Headers[0].(*Iphdr); ipOk {
+	if ip, ipOk := p.Headers[0].(*Ip4hdr); ipOk {
 		if ip.Version != 4 {
 			t.Error("ip Version", ip.Version)
 		}

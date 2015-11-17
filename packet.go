@@ -40,7 +40,7 @@ func (p *Packet) Decode() {
 
 	switch p.Type {
 	case TYPE_IP:
-		p.decodeIp()
+		p.decodeIp4()
 	case TYPE_IP6:
 		p.decodeIp6()
 	case TYPE_ARP:
@@ -109,12 +109,12 @@ func (p *Packet) decodeArp() {
 	p.Payload = p.Payload[8+2*arp.HwAddressSize+2*arp.ProtAddressSize:]
 }
 
-func (p *Packet) decodeIp() {
+func (p *Packet) decodeIp4() {
 	if len(p.Payload) < 20 {
 		return
 	}
 	pkt := p.Payload
-	ip := new(Iphdr)
+	ip := new(Ip4hdr)
 
 	ip.Version = uint8(pkt[0]) >> 4
 	ip.Ihl = uint8(pkt[0]) & 0x0F
@@ -148,7 +148,7 @@ func (p *Packet) decodeIp() {
 	case IP_ICMP:
 		p.decodeIcmp()
 	case IP_INIP:
-		p.decodeIp()
+		p.decodeIp4()
 	}
 }
 
@@ -232,6 +232,6 @@ func (p *Packet) decodeIp6() {
 	case IP_ICMP:
 		p.decodeIcmp()
 	case IP_INIP:
-		p.decodeIp()
+		p.decodeIp4()
 	}
 }

@@ -129,8 +129,15 @@ func (arp *Arphdr) String() (s string) {
 	return
 }
 
+//Generalized interface for IP header of both versions (IPv4 and IPv6))
+type Iphdr interface {
+	SrcAddr() string
+	DestAddr() string
+	Len() int
+}
+
 // IPhdr is the header of an IP packet.
-type Iphdr struct {
+type Ip4hdr struct {
 	Version    uint8
 	Ihl        uint8
 	Tos        uint8
@@ -145,9 +152,9 @@ type Iphdr struct {
 	DestIp     []byte
 }
 
-func (ip *Iphdr) SrcAddr() string  { return net.IP(ip.SrcIp).String() }
-func (ip *Iphdr) DestAddr() string { return net.IP(ip.DestIp).String() }
-func (ip *Iphdr) Len() int         { return int(ip.Length) }
+func (ip *Ip4hdr) SrcAddr() string  { return net.IP(ip.SrcIp).String() }
+func (ip *Ip4hdr) DestAddr() string { return net.IP(ip.DestIp).String() }
+func (ip *Ip4hdr) Len() int         { return int(ip.Length) }
 
 type Tcphdr struct {
 	SrcPort    uint16
@@ -270,7 +277,7 @@ type Ip6hdr struct {
 	TrafficClass uint8  // 8 bits
 	FlowLabel    uint32 // 20 bits
 	Length       uint16 // 16 bits
-	NextHeader   uint8  // 8 bits, same as Protocol in Iphdr
+	NextHeader   uint8  // 8 bits, same as Protocol in Ip4hdr
 	HopLimit     uint8  // 8 bits
 	SrcIp        []byte // 16 bytes
 	DestIp       []byte // 16 bytes
