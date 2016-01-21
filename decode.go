@@ -156,8 +156,8 @@ type Ip4hdr struct {
 
 func (ip *Ip4hdr) SrcAddr() string    { return net.IP(ip.SrcIp).String() }
 func (ip *Ip4hdr) DestAddr() string   { return net.IP(ip.DestIp).String() }
-func (ip *Ip4hdr) SrcIpAddr() string  { return ip.SrcIp }
-func (ip *Ip4hdr) DestIpAddr() string { return ip.DestIp }
+func (ip *Ip4hdr) SrcIpAddr() []byte  { return ip.SrcIp }
+func (ip *Ip4hdr) DestIpAddr() []byte { return ip.DestIp }
 func (ip *Ip4hdr) Len() int           { return int(ip.Length) }
 
 type Tcphdr struct {
@@ -289,6 +289,6 @@ type Ip6hdr struct {
 
 func (ip6 *Ip6hdr) SrcAddr() string    { return net.IP(ip6.SrcIp).String() }
 func (ip6 *Ip6hdr) DestAddr() string   { return net.IP(ip6.DestIp).String() }
-func (ip6 *Ip6hdr) SrcIpAddr() string  { return ip6.SrcIp }
-func (ip6 *Ip6hdr) DestIpAddr() string { return ip6.DestIp }
+func (ip6 *Ip6hdr) SrcIpAddr() []byte  { return ip6.SrcIp }
+func (ip6 *Ip6hdr) DestIpAddr() []byte { return ip6.DestIp }
 func (ip6 *Ip6hdr) Len() int           { return int(ip6.Length) }
