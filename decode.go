@@ -134,6 +134,8 @@ type Iphdr interface {
 	SrcAddr() string
 	DestAddr() string
 	Len() int
+	SrcIp() []byte
+	DestIp() []byte
 }
 
 // IPhdr is the header of an IP packet.
